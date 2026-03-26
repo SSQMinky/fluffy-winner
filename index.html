@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreativAbode</title>
+    <style>
+        body {
+            font-family: 'Helvetica', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: #2d2d2d;
+            font-size: 2.5rem;
+        }
+
+        p {
+            margin: 0;
+            color: #666;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .room-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none; /* Prevents dragging the image */
+        }
+
+        /* Invisible clickable areas that scale with the image */
+        .hotspot {
+            position: absolute;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            /* background: rgba(255, 0, 0, 0.3); /* Uncomment this to see the clickable boxes! */
+        }
+
+        .hotspot:hover {
+            background: rgba(255, 255, 255, 0.25); /* Subtle highlight when hovering */
+        }
+
+        /* Coordinates for the Plain Room */
+        #spot-piano { top: 46%; left: 5%; width: 42%; height: 13%; }
+        #spot-tablet { top: 31%; left: 8%; width: 11%; height: 15%; }
+
+        /* Coordinates for the Welcome Mats */
+        .spot-mat { top: 87%; left: 74%; width: 26%; height: 13%; }
+
+        /* Logic to hide/show rooms */
+        .scene { display: none; animation: fadeIn 0.4s ease; }
+        .scene.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>CreativAbode</h1>
+        <p>See where my dreams take me…</p>
+    </div>
+
+    <div class="room-container">
+        <div id="scene-plain" class="scene active">
+            <img src="plain.jpeg" alt="Plain Room">
+            <div id="spot-piano" class="hotspot" onclick="changeScene('music')" title="Enter Music Dreamscape"></div>
+            <div id="spot-tablet" class="hotspot" onclick="changeScene('art')" title="Enter Art Dreamscape"></div>
+        </div>
+
+        <div id="scene-music" class="scene">
+            <img src="studio.jpeg" alt="Music Dreamscape">
+            <div class="hotspot spot-mat" onclick="changeScene('plain')" title="Return to Reality"></div>
+        </div>
+
+        <div id="scene-art" class="scene">
+            <img src="art.jpeg" alt="Art Dreamscape">
+            <div class="hotspot spot-mat" onclick="changeScene('plain')" title="Return to Reality"></div>
+        </div>
+    </div>
+
+    <script>
+        function changeScene(sceneName) {
+            // Hide all scenes
+            document.querySelectorAll('.scene').forEach(el => el.classList.remove('active'));
+            // Show the requested scene
+            document.getElementById('scene-' + sceneName).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
